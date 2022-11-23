@@ -1,2 +1,2 @@
-# ENS
-The Ethereum Name Service
+# ENS DAPP
+The Ethereum Name Service DAPP
