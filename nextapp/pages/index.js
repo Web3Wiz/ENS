@@ -21,9 +21,9 @@ export default function Home() {
         disableInjectedProvider: false,
       });
       connectWallet().then((signerAddress) => {
-        if (signerAddress != "") {
+        if (signerAddress) {
           getENS(signerAddress).then((_ens) => {
-            if (_ens != "") setENS(_ens);
+            if (_ens) setENS(_ens);
             else setAddress(signerAddress);
           });
         }
@@ -33,13 +33,13 @@ export default function Home() {
 
   const getENS = async (signerAddress) => {
     const web3provider = await getProviderOrSigner();
-    let _ens = "";
+    let _ens;
     try {
       _ens = await web3provider.lookupAddress(signerAddress);
       return _ens;
     } catch (error) {
       console.error(error);
-      return "";
+      return null;
     }
   };
   const showENS = async () => {
@@ -56,13 +56,13 @@ export default function Home() {
     try {
       const signer = await getProviderOrSigner(true);
       const address = await signer.getAddress();
-      if (address != "") {
+      if (address) {
         setWalletConnected(true);
       }
       return address;
     } catch (error) {
       console.error(error);
-      return "";
+      return null;
     }
   };
   const getProviderOrSigner = async (needSigner = false) => {
@@ -94,11 +94,7 @@ export default function Home() {
             </h3>
             {walletConnected ? (
               <div>
-                <h4>
-                  {ens == "" || ens == null
-                    ? "Your Address: " + address
-                    : "Your ENS: " + ens}
-                </h4>
+                <h4>{ens ? "Your ENS: " + ens : "Your Address: " + address}</h4>
                 <div className={styles.description}>
                   You can enter the address below and check its ENS name
                   <input
