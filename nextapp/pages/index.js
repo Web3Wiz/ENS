@@ -95,7 +95,9 @@ export default function Home() {
             {walletConnected ? (
               <div>
                 <h4>
-                  {ens == "" ? "Your Address: " + address : "Your ENS: " + ens}
+                  {ens == "" || ens == null
+                    ? "Your Address: " + address
+                    : "Your ENS: " + ens}
                 </h4>
                 <div className={styles.description}>
                   You can enter the address below and check its ENS name
